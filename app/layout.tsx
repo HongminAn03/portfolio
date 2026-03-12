@@ -29,10 +29,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col bg-[#0a0a0f] text-white cursor-none`}
+        className={`${inter.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col bg-[#0a0a0f] text-white md:cursor-none`}
       >
         <LoadingScreen />
-        <CursorEffect />
+        <div className="hidden md:contents"><CursorEffect /></div>
         <Navbar />
         <div className="flex-1 pt-16">{children}</div>
         <Footer />
