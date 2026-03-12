@@ -106,6 +106,7 @@ const tagIcons: Record<string, string> = {
   "PuTTY":      "/putty%20icon.png",
   "MS Office":  "/office-365%20icon.png",
   "Cursor":     "/cursor%20icon.png",
+  "Vercel":     "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vercel/vercel-original.svg",
 };
 
 const stackCategories = [
@@ -114,7 +115,7 @@ const stackCategories = [
   { label: "Backend",   skills: ["SQL", "Docker", "MongoDB", "Node.js", "JSON"] },
   { label: "Data",      skills: ["NumPy", "Jupyter", "TensorFlow"] },
   { label: "Systems",   skills: ["Linux", "Git", "GitHub", "MS Office"] },
-  { label: "Tools",     skills: ["VS Code", "Cursor", "PuTTY", "Arduino", "Terminal"] },
+  { label: "Tools",     skills: ["VS Code", "Cursor", "Vercel", "PuTTY", "Arduino", "Terminal"] },
 ];
 
 
