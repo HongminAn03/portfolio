@@ -334,9 +334,9 @@ export default function Home() {
       <canvas ref={canvasRef} className="fixed inset-0 pointer-events-none z-0" />
 
       {/* HERO */}
-      <section id="hero" ref={heroRef} className="min-h-screen flex flex-col items-center justify-center px-6 relative overflow-hidden">
+      <section id="hero" ref={heroRef} className="min-h-screen flex flex-col items-center justify-center px-6 relative">
         {/* Aurora blobs */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
           <div className="aurora-1 absolute w-[500px] h-[500px] rounded-full bg-blue-600/20 blur-[120px]" style={{ top: "5%", left: "10%" }} />
           <div className="aurora-2 absolute w-[420px] h-[420px] rounded-full bg-violet-600/15 blur-[100px]" style={{ top: "35%", right: "8%" }} />
           <div className="aurora-3 absolute w-[360px] h-[360px] rounded-full bg-indigo-500/15 blur-[90px]" style={{ bottom: "8%", left: "28%" }} />
