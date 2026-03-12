@@ -342,7 +342,7 @@ export default function Home() {
 
       {/* Floating avatar — bottom-right, visible after scrolling past hero */}
       <div
-        className="fixed bottom-6 right-6 z-40 transition-all duration-500"
+        className="hidden md:block fixed bottom-6 right-6 z-40 transition-all duration-500"
         style={{
           opacity: scrolled ? 1 : 0,
           transform: scrolled ? "scale(1) translateY(0)" : "scale(0.8) translateY(20px)",
