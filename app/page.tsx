@@ -126,6 +126,7 @@ export default function Home() {
   const [scrolled, setScrolled] = useState(false);
   const [visibleItems, setVisibleItems] = useState<Set<number>>(new Set());
   const [activeProject, setActiveProject] = useState(0);
+  const [windowWidth, setWindowWidth] = useState(1200);
   const heroRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const timelineRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -140,6 +141,13 @@ export default function Home() {
   const [roleIndex, setRoleIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
   const [deleting, setDeleting] = useState(false);
+
+  useEffect(() => {
+    setWindowWidth(window.innerWidth);
+    const onResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
 
   useEffect(() => {
     const onScroll = () => {
@@ -252,8 +260,19 @@ export default function Home() {
       wheelState.current.isDragging = false;
     };
 
+    const onTouchMove = (e: TouchEvent) => {
+      const ws = wheelState.current;
+      if (!ws.isDragging) return;
+      ws.velocity = e.touches[0].clientX - ws.prevX;
+      ws.prevX = e.touches[0].clientX;
+      ws.offset = ws.dragStartOffset + (e.touches[0].clientX - ws.dragStartX);
+    };
+    const onTouchEnd = () => { wheelState.current.isDragging = false; };
+
     window.addEventListener("mousemove", onMouseMove);
     window.addEventListener("mouseup", onMouseUp);
+    window.addEventListener("touchmove", onTouchMove, { passive: true });
+    window.addEventListener("touchend", onTouchEnd);
 
     const loop = () => {
       const ws = wheelState.current;
@@ -306,6 +325,8 @@ export default function Home() {
     return () => {
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("mouseup", onMouseUp);
+      window.removeEventListener("touchmove", onTouchMove);
+      window.removeEventListener("touchend", onTouchEnd);
       cancelAnimationFrame(stackRafRef.current);
     };
   }, []);
@@ -313,8 +334,11 @@ export default function Home() {
   const prevProject = () => setActiveProject((a) => Math.max(0, a - 1));
   const nextProject = () => setActiveProject((a) => Math.min(projects.length - 1, a + 1));
 
+  const cardWidth = Math.min(320, windowWidth - 48);
+  const cardOffset = windowWidth < 640 ? cardWidth + 16 : 360;
+
   return (
-    <main className="bg-[#0a0a0f] text-white cursor-none">
+    <main className="bg-[#0a0a0f] text-white md:cursor-none">
 
       {/* Floating avatar — bottom-right, visible after scrolling past hero */}
       <div
@@ -343,14 +367,14 @@ export default function Home() {
         </div>
         <div className="flex flex-col items-center text-center z-10">
           <div className="hero-entrance mb-6" style={{ animationDelay: "2.3s" }}>
-            <div className="w-56 h-56 animate-float">
+            <div className="w-40 h-40 md:w-56 md:h-56 animate-float">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/avatar.png" alt="Hongmin An" className="w-full h-full object-contain" />
             </div>
           </div>
           <p className="text-blue-400 text-xs tracking-[0.3em] uppercase mb-3 hero-entrance" style={{ animationDelay: "2.45s" }}>Hello, I&apos;m</p>
           <div className="hero-entrance mb-3" style={{ animationDelay: "2.6s" }}>
-            <h1 className="text-7xl font-bold tracking-tight gradient-name">Hongmin An</h1>
+            <h1 className="text-5xl md:text-7xl font-bold tracking-tight gradient-name">Hongmin An</h1>
           </div>
           {/* Typewriter subtitle */}
           <p className="text-gray-400 text-lg mb-2 h-7 hero-entrance" style={{ animationDelay: "2.75s" }}>
@@ -405,7 +429,7 @@ export default function Home() {
       </section>
 
       {/* ABOUT */}
-      <section id="about" className="max-w-2xl mx-auto px-6 py-28 border-t border-gray-800/50">
+      <section id="about" className="max-w-2xl mx-auto px-6 py-16 md:py-28 border-t border-gray-800/50">
         <p className="text-blue-400 text-xs tracking-[0.3em] uppercase mb-2">Who I Am</p>
         <h2 className="text-3xl font-bold mb-2">Character Profile</h2>
         <p className="text-gray-500 text-sm mb-12">Version History &amp; Patch Notes — click any patch to expand.</p>
@@ -452,14 +476,14 @@ export default function Home() {
       </section>
 
       {/* PROJECTS */}
-      <section id="projects" className="py-28 border-t border-gray-800/50 overflow-hidden">
+      <section id="projects" className="py-16 md:py-28 border-t border-gray-800/50 overflow-hidden">
         <div className="max-w-2xl mx-auto px-6">
           <p className="text-blue-400 text-xs tracking-[0.3em] uppercase mb-2">What I&apos;ve Built</p>
           <h2 className="text-3xl font-bold mb-16">Projects</h2>
         </div>
 
         {/* Carousel */}
-        <div className="relative flex items-center justify-center" style={{ height: 540 }}>
+        <div className="relative flex items-center justify-center" style={{ height: windowWidth < 640 ? 500 : 540 }}>
           {projects.map((p, i) => {
             const dist = i - activeProject;
 
@@ -481,8 +505,8 @@ export default function Home() {
                 }}
                 style={{
                   position: "absolute",
-                  width: 320,
-                  transform: `translateX(${dist * 360}px) scale(${isActive ? 1 : 0.82})`,
+                  width: cardWidth,
+                  transform: `translateX(${dist * cardOffset}px) scale(${isActive ? 1 : 0.82})`,
                   opacity: isActive ? 1 : isSide ? 0.45 : 0,
                   transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
                   zIndex: isActive ? 10 : isSide ? 5 : 0,
@@ -572,7 +596,7 @@ export default function Home() {
       </section>
 
       {/* SKILLS */}
-      <section id="skills" className="py-28 border-t border-gray-800/50">
+      <section id="skills" className="py-16 md:py-28 border-t border-gray-800/50">
         <div className="max-w-2xl mx-auto px-6">
           <p className="text-blue-400 text-xs tracking-[0.3em] uppercase mb-2">Technologies</p>
           <h2 className="text-3xl font-bold mb-3">Stack</h2>
@@ -593,6 +617,14 @@ export default function Home() {
             ws.prevX = e.clientX;
             ws.velocity = 0;
             e.preventDefault();
+          }}
+          onTouchStart={(e) => {
+            const ws = wheelState.current;
+            ws.isDragging = true;
+            ws.dragStartX = e.touches[0].clientX;
+            ws.dragStartOffset = ws.offset;
+            ws.prevX = e.touches[0].clientX;
+            ws.velocity = 0;
           }}
         >
           {stackCategories.map((cat, ci) => (
@@ -640,7 +672,7 @@ export default function Home() {
       </section>
 
       {/* CONTACT */}
-      <section id="contact" className="max-w-2xl mx-auto px-6 py-28 border-t border-gray-800/50">
+      <section id="contact" className="max-w-2xl mx-auto px-6 py-16 md:py-28 border-t border-gray-800/50">
         <p className="text-blue-400 text-xs tracking-[0.3em] uppercase mb-2">Get In Touch</p>
         <h2 className="text-3xl font-bold mb-3">Contact Me</h2>
         <p className="text-gray-500 text-sm mb-12">Have a question, opportunity, or just want to say hi? My inbox is open.</p>
