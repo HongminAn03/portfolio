@@ -22,7 +22,7 @@ const projects = [
     problem: "Studying is boring — how can we gamify it with AI?",
     solution: "Built an LLM-powered study companion that turns notes into interactive quests and challenges.",
     tags: ["TypeScript", "React", "Python", "SQL", "Docker", "Figma"],
-    link: "https://github.com/jalo0228/Nittany-AI-Challenge",
+    link: "",
     image: "/nittany-buddy.png",
   },
   {
@@ -42,7 +42,7 @@ const projects = [
     problem: "Can you build Discord from scratch, in C?",
     solution: "Multi-channel messaging system with socket I/O and concurrent client handling — no libraries, no shortcuts.",
     tags: ["C", "Linux", "POSIX"],
-    link: "https://github.com/PSU-CMPSC-311-FA25/mycord-HongminAn03",
+    link: "",
     image: "/mycord.png",
   },
   {
@@ -559,7 +559,7 @@ export default function Home() {
                       )
                     ))}
                   </div>
-                  {isActive && p.link !== "#" && (
+                  {isActive && p.link !== "#" && p.link !== "" && (
                     <a
                       href={p.link}
                       target="_blank"
