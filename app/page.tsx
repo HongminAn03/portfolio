@@ -22,8 +22,18 @@ const projects = [
     problem: "Studying is boring — how can we gamify it with AI?",
     solution: "Built an LLM-powered study companion that turns notes into interactive quests and challenges.",
     tags: ["TypeScript", "React", "Python", "SQL", "Docker", "Figma"],
-    link: "",
+    link: "/Nittany%20Buddy%20MVP%20video.mp4",
     image: "/nittany-buddy.png",
+  },
+  {
+    title: "Job Scraper",
+    date: "2026",
+    status: "Live",
+    problem: "Tired of manually searching for jobs where you fit the requirements?",
+    solution: "Built an automated scraper that searches LinkedIn, scores jobs against my resume using Claude Haiku, filters visa-denial roles, and delivers top matches to my phone via Telegram — runs weekly on Task Scheduler.",
+    tags: ["Python", "Claude API", "Telegram"],
+    link: "https://github.com/HongminAn03/job-scraper",
+    image: "/job-scraper%20thumbnail.png",
   },
   {
     title: "UART Brightness Sensor",
@@ -102,11 +112,17 @@ const tagIcons: Record<string, string> = {
   "TensorFlow": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tensorflow/tensorflow-original.svg",
   "VS Code":    "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg",
   "JSON":       "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/json/json-original.svg",
+  "Claude API": "/claude%20icon.svg",
   "Terminal":   "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bash/bash-original.svg",
   "PuTTY":      "/putty%20icon.png",
   "MS Office":  "/office-365%20icon.png",
   "Cursor":     "/cursor%20icon.png",
   "Vercel":     "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vercel/vercel-original.svg",
+  "Telegram":   "/telegram%20icon.png",
+  "Apache Derby": "/Apache%20Derby%20icon.svg",
+  "JDBC":        "/JDBC.png",
+  "Excel":       "/excel%20icon.png",
+  "Excel VBA":   "/excel%20icon.png",
 };
 
 const stackCategories = [
