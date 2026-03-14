@@ -23,6 +23,7 @@ const projects = [
     solution: "Built an LLM-powered study companion that turns notes into interactive quests and challenges.",
     tags: ["TypeScript", "React", "Python", "SQL", "Docker", "Figma"],
     link: "https://youtu.be/BoceqUP5f2Q",
+    linkLabel: "view MVP",
     image: "/nittany-buddy.png",
   },
   {
@@ -582,7 +583,7 @@ export default function Home() {
                       rel="noopener noreferrer"
                       className="text-xs text-blue-400 hover:text-blue-300 transition-colors font-mono"
                     >
-                      view project →
+                      {"linkLabel" in p && p.linkLabel ? p.linkLabel : "view project"} →
                     </a>
                   )}
                 </div>
