@@ -22,7 +22,7 @@ const projects = [
     problem: "Studying is boring — how can we gamify it with AI?",
     solution: "Built an LLM-powered study companion that turns notes into interactive quests and challenges.",
     tags: ["TypeScript", "React", "Python", "SQL", "Docker", "Figma"],
-    link: "/Nittany%20Buddy%20MVP%20video.mp4",
+    link: "https://youtu.be/BoceqUP5f2Q",
     image: "/nittany-buddy.png",
   },
   {
